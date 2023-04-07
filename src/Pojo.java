@@ -74,7 +74,7 @@ public class Pojo {
     }
 
     //---------------------------------------------------------------------------------------------------------------
-//    // swap and reverse
+    // swap and reverse
     public static void main(String[] args) {
         int[] arr = new int[]{2, 7, 3, 10, 8, 15};
         swap(arr, 1,3);
@@ -171,7 +171,7 @@ public class Pojo {
         // hences increases by the multiple of 2^k
     }
 
-     right shift operator
+    // right shift operator
     public static void main(String[] args) {
         int n = 64;
         System.out.println(n>>1); // right shift by 1 halves the number
@@ -241,7 +241,7 @@ public class Pojo {
         return (n & (1<<(i-1))) == 0;
     }
 
-     find the position of the rightmost set bit
+     // find the position of the rightmost set bit
     public static void main(String[] args) {
         int n = 180;
         System.out.println(Integer.toBinaryString(n));
@@ -375,15 +375,143 @@ public class Pojo {
         System.out.println("number of digits: "+ Math.floor((Math.log(n)/Math.log(2))+1));
     }
 
-//    // you are given a number. find if it is a power of 2 or not
-//    public static void main(String[] args) {
-//        // for a number to be a power of 2 only 1 bit has to be a 1 and all other bits have to be 0's
-//        // ex: 32 = 100000 = 11111 + 1 = 100000 & 011111 = 0 , 18 = 10010 = 10010 & 01111 = 1
-//        int n = 32;
-//        // find the position of most significant bit
-//
-//
-//
-//    }
+    // you are given a number. find if it is a power of 2 or not
+    public static void main(String[] args) {
+        // for a number to be a power of 2 only 1 bit has to be a 1 and all other bits have to be 0's
+        // ex: 32 = 100000 = 11111 + 1 = 100000 & 011111 = 0 , 18 = 10010 = 10010 & 01111 = 1
+        int n = 32;
+        if ((n & (n-1)) == 0){
+            System.out.println(n + " is a power of 2");
+         }else {
+            System.out.println(n+" is not a power of 2");
+        }
+    }
+
+    // calculate a^b using bitwise operation
+    public static int getNumberOfbits(int num){
+        //edge case
+        if(num == 0 ){
+            return 1;
+        }
+        int count = 0;
+//        while(num > 0){
+//            num = num/2;
+//            count++;
+//        }
+
+        while (num != 0){
+            count++;
+            num = num >> 1;
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int base = 3;
+        int power = 5;
+        int ans = 1;
+
+        int count = getNumberOfbits(power);
+
+        while (count > 0){
+            if((power & 1)==1){ // check if the last bit is a 1
+                ans = ans * base;
+            }
+            base = base * base;
+            power = power >> 1;
+            count--;
+        }
+
+        System.out.println("base^power: "+ ans); // 243
+    }
+
+    // given a number n, find the no. of set bits in it
+    // example n = 9 = 1001 has 2 set bits
+    public static void main(String[] args) {
+        int a = 14;
+        int count = 0;
+        // n & (-n) gives the last set bit
+        // n - (n & (-n)) gives the remaining, keep doing this until n = 0
+
+        int n = a;
+        while (n > 0){
+            n = n - (n & (-n));
+            count++;
+        }
+        System.out.printf("No. of set bits for %s is %d", Integer.toBinaryString(a), count); // No. of set bits for 1110 is 3
+    }
+
+    // second approach to above question
+    // ex: n = 9; n & (n-1) => 1001 & 1000 = 1000 => 1000 & 0111 = 0 => count = 2
+    public static void main(String[] args) {
+        int n = 14;
+        int count = 0;
+        while (n > 0){
+            n = n & (n-1);
+            count++;
+        }
+        System.out.println("Number of set bits: " + count); // Number of set bits: 3
+    }
+
+    // Find XOR of nums from 0 to a
+    // Note: after every 4 numbers there is a pattern
+    // if a % 4 = 0 then XOR is a
+    // if a % 4 = 1 then XOR is 1
+    // if a % 4 = 2 then XOR is a+1
+    // if a % 4 = 3 then XOR is 0
+    public static void main(String[] args) {
+        int a = 7;
+        int xorResult = XORCalculator(a);
+        System.out.println("XOR from o to "+a+ " is "+ xorResult);
+    }
+
+    public static int XORCalculator(int a){
+        int xorResult = 0;
+        int modResult = a % 4;
+        if (modResult == 0){
+            xorResult = 0;
+        } else if (modResult == 1) {
+            xorResult = 1;
+        }else if (modResult == 2){
+            xorResult = a + 1;
+        } else {
+            xorResult = 0;
+        }
+        return xorResult;
+    }
+
+    // find XOR of all numbers between a and b
+    // a^b has repeated XORs 0 to a-1, hence, to find XORs between a and b => findXOR(a-1)^findXOR(b)
+    public static void main(String[] args) {
+        int a = 3;
+        int b = 10;
+        int xor = calculateXOR(a, b);
+        System.out.println("XOR of numbers from "+ a + " to "+b+" inclusive: "+ xor);
+    }
+
+    public static int calculateXOR(int a, int b){
+        // Calculate the XOR of numbers form o to a-1
+        int xorA = getXOR(0, a-1);
+
+        // Calculate the XOR of numbers form 0 to b
+        int xorB = getXOR(0, b);
+
+        // XOR result of step 1 with step 2
+        return xorA ^ xorB;
+    }
+
+    // helper method to calculate XOR of numbers from start to end
+    public static int getXOR(int start, int end){
+        int result = 0;
+        for(int i = start; i <= end; i++){
+            result ^= i;
+        }
+        return result;
+    }
+
+    //---------------------------------------------------------------------------------------------------------------
+    // Maths for DSA and Algo
+
+
 
 }
