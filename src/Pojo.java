@@ -2,7 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
 
 public class Pojo {
     public static void main(String[] args) {
@@ -512,6 +512,115 @@ public class Pojo {
     //---------------------------------------------------------------------------------------------------------------
     // Maths for DSA and Algo
 
+    // Q1. find is it is a prime number
+    public static void main(String[] args) {
+        int n = 11;
+        System.out.println(n + " is a prime number: "+ isPrime(n));
+    }
+
+    public static boolean isPrime(int n){
+        //edge case
+        if (n<=1){
+            return false;
+        }
+
+        for(int i = 2; i <= Math.sqrt(n); i++){
+            if(n % i == 0){
+                return false; // if divisible it is not a prime number
+            }
+        }
+
+        return true;
+    }
 
 
+    // Q.2 find the prime numbers till N
+    // Time complexity: O(N.log(logN))
+    public static void main(String[] args) {
+        int n = 40;
+        ArrayList<Integer> primeNumbers = getPrimeNums(n);
+        System.out.println("Prime numbers till "+n+ " are: "+ primeNumbers);
+    }
+
+    public static ArrayList<Integer> getPrimeNums(int n){
+        boolean[] primeNums = new boolean[n+1];
+        ArrayList<Integer> primeNumbers = new ArrayList<Integer>();
+
+        primeNums[0] = true;
+        primeNums[1] = true;
+
+        for(int i=2; i<=n; i++){
+            if(primeNums[i]==false){
+                primeNumbers.add(i);
+                for(int j=i; j<=n; j=j+i){ // cross out multiples of 2, 3, X, 5, X, 7 .... and the remaining ones are stored to return
+                    primeNums[j] = true;
+                }
+            }
+        }
+
+        return primeNumbers;
+    }
+
+    // Q3. find the square root of a number
+    // Time complexity: O(logN) also, it can be O(logN.F(N)) where F(N) = cost of calculating f(n)/f'(n) with n-digit precision
+    public static void main(String[] args) {
+        int n = 40;
+        float sqroot = getSqrt(n);
+        System.out.println("The sqrt of "+n+ " is: "+ sqroot);
+    }
+
+    public static float getSqrt(int n){
+        //edge case
+        if(n==0){
+            return 0;
+        } else if (n==1) {
+            return 1;
+        }
+
+        float s = 0;
+        float e = n;
+        float m = s+((e-s)/2);
+
+        while (true){
+            if(m*m > n){
+                e = m-1;
+            }else {
+                s = m+1;
+            }
+            m = s+((e-s)/2);
+
+            if(m*m == n){
+                break;
+            }
+        }
+
+        return m;
+    }
+
+    // Q4. find factors of a number
+    // n=20 => 1, 2, 4, 5, 10, 20
+    // time complexity: O(sqrt(n))
+    public static void main(String[] args) {
+        int n = 20;
+        ArrayList<Integer> factors = getfactors(n);
+        System.out.println("factors for "+n+" are: "+factors);
+    }
+
+    public static ArrayList<Integer> getfactors(int n){
+        ArrayList<Integer> factors = new ArrayList<>();
+        //edge case
+        if(n==1){
+            factors.add(1);
+            return factors;
+        }
+
+        for(int i=1; i<=Math.sqrt(n); i++){
+            if(n%i == 0){
+                factors.add(i);
+                factors.add(n/i);
+            }
+        }
+        Collections.sort(factors);
+        return factors;
+    }
 }
