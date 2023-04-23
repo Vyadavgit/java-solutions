@@ -1,4 +1,4 @@
-package Q21;
+package Q21MergeTwoSortedLists;
 
 /*
 Q21. Merge Two Sorted Lists

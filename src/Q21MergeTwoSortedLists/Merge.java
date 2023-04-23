@@ -1,4 +1,4 @@
-package Q21;
+package Q21MergeTwoSortedLists;
 
 public class Merge {
     public static void main(String[] args) {

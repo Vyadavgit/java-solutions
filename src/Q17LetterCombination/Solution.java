@@ -1,4 +1,4 @@
-package Q17;
+package Q17LetterCombination;
 
 import java.util.ArrayList;
 /*
