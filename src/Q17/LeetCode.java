@@ -1,4 +1,4 @@
-// [17, 21, 25, 34, 37, 41, 61, 83, 92, 143, 148, 162, 206, 234, 268, 287, 442, 448, 645, 832, 852, 1672]
+package Q17;// [17, 21, 25, 34, 37, 41, 61, 83, 92, 143, 148, 162, 206, 234, 268, 287, 442, 448, 645, 832, 852, 1672]
 
 import java.util.ArrayList;
 
@@ -67,52 +67,6 @@ Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
         }
         return count;
     }
-
-
-    // LEETCODE SUBMITTED SOLUTION
-    class Solution {
-        public List<String> letterCombinations(String digits) {
-            if(digits.isEmpty()){
-                ArrayList<String> list = new ArrayList();
-                return list;
-            }
-            return padRet("",digits);
-        }
-
-        static ArrayList<String> padRet(String processed, String unprocessed){
-            if(unprocessed.isEmpty()){
-                ArrayList<String> list = new ArrayList<>();
-                list.add(processed);
-                return list;
-            }
-            ArrayList<String> list  = new ArrayList<>();
-            int digit = unprocessed.charAt(0)-'0'; // take initial char and convert to digit
-
-            if(digit == 7 || digit==8 || digit == 9){
-                if(digit==7){
-                    for(int i = (digit-2)*3; i < ((digit-2)*3)+4; i++){
-                        char ch = (char) ('a'+i);
-                        list.addAll(padRet(processed+ch, unprocessed.substring(1)));
-                    }
-                }else if(digit==8){
-                    for(int i = (digit-2)*3+1; i < ((digit-2)*3+1)+3; i++){
-                        char ch = (char) ('a'+i);
-                        list.addAll(padRet(processed+ch, unprocessed.substring(1)));
-                    }
-                }else{
-                    for(int i = (digit-2)*3+1; i < ((digit-2)*3+1)+4; i++){
-                        char ch = (char) ('a'+i);
-                        list.addAll(padRet(processed+ch, unprocessed.substring(1)));
-                    }
-                }
-            }else{
-                for(int i = (digit-2)*3; i < ((digit-2)*3)+3; i++){
-                    char ch = (char) ('a'+i);
-                    list.addAll(padRet(processed+ch, unprocessed.substring(1)));
-                }
-            }
-            return list;
-        }
-    }
-
 }
+
+
