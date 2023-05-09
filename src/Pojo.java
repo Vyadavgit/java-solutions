@@ -601,26 +601,26 @@ public class Pojo {
     // n=20 => 1, 2, 4, 5, 10, 20
     // time complexity: O(sqrt(n))
     public static void main(String[] args) {
-        int n = 20;
-        ArrayList<Integer> factors = getfactors(n);
-        System.out.println("factors for "+n+" are: "+factors);
+        int num = 20;
+        System.out.println(factors(num));
     }
 
-    public static ArrayList<Integer> getfactors(int n){
-        ArrayList<Integer> factors = new ArrayList<>();
-        //edge case
-        if(n==1){
-            factors.add(1);
-            return factors;
+    public static ArrayList<Integer> factors(int num){
+        ArrayList<Integer> list = new ArrayList<>();
+        if(num == 1){
+            list.add(1);
+            return list;
         }
 
-        for(int i=1; i<=Math.sqrt(n); i++){
-            if(n%i == 0){
-                factors.add(i);
-                factors.add(n/i);
+        for(int i=1; i<=Math.sqrt(num); i++){
+            if(num % i == 0){
+                list.add(i);
+                if(i != Math.sqrt(num)){
+                    list.add(num/i);
+                }
             }
         }
-        Collections.sort(factors);
-        return factors;
+        Collections.sort(list);
+        return list;
     }
 }
