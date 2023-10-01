@@ -18,7 +18,7 @@ merging them into one sorted list:
 1->1->2->3->4->4->5->6
 
 Time Complexity: O(k * n * log k)
-Space Complexity: O(log k)
+Space Complexity: O(log k) the depth of the recursion is O(log k)
  */
 
 /**
